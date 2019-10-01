@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Summary from './Summary';
 
@@ -6,25 +6,15 @@ const Character = props => {
   const [loadedCharacter, setLoadedCharacter] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const shouldComponentUpdate = (nextProps, nextState) => {
-    console.log('shouldComponentUpdate');
-    return (
-      nextProps.selectedChar !== props.selectedChar ||
-      nextState.loadedCharacter.id !== loadedCharacter.id ||
-      nextState.isLoading !== isLoading
-    );
-  }
 
-  const componentDidUpdate = (prevProps) => {
-    console.log('Component did update');
-    if (prevProps.selectedChar !== props.selectedChar) {
-      fetchData();
-    }
-  }
-
-  useEffect(()=> {
-    fetchData();
-  }, []);
+  // const shouldComponentUpdate = (nextProps, nextState) => {
+  //   console.log('shouldComponentUpdate');
+  //   return (
+  //     nextProps.selectedChar !== props.selectedChar ||
+  //     nextState.loadedCharacter.id !== loadedCharacter.id ||
+  //     nextState.isLoading !== isLoading
+  //   );
+  // }
 
   const fetchData = () => {
     console.log(
@@ -57,14 +47,17 @@ const Character = props => {
       })
       .catch(err => {
         console.log(err);
+        setIsLoading(false);
       });
   };
 
-  const componentWillUnmount = () => {
-    console.log('Too soon...');
-  }
+  useEffect(()=> {
+    fetchData();
+    return ()=> {
+      console.log('clean up');
+    }
+  }, [props.selectedChar]);
 
-  
   let content = <p>Loading Character...</p>;
   if (!isLoading && loadedCharacter.id) {
     content = (
