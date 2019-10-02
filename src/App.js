@@ -5,7 +5,7 @@ import Character from './components/Character';
 
 const App = props => {
   const [selectedCharacter, setSelectedCharacter] = useState(1);
-  const [side, setSide] = useState('light');
+  const [side, setSide] = useState('red');
   const [destroyed, setDestroyed] = useState(false);
 
   const sideHandler = side => {
@@ -14,7 +14,6 @@ const App = props => {
 
   const charSelectHandler = event => {
     const charId = event.target.value;
-    console.log('[char clickedd]', event.target.value);
     setSelectedCharacter(charId);
   };
 
@@ -30,11 +29,11 @@ const App = props => {
         onCharSelect={charSelectHandler}
       />
       <Character selectedChar={selectedCharacter} />
-      <button onClick={sideHandler.bind(this, 'light')}>
-        Light Side
+      <button onClick={sideHandler.bind(this, 'red')}>
+        Red Light
       </button>
-      <button onClick={sideHandler.bind(this, 'dark')}>Dark Side</button>
-      {side === 'dark' && (
+      <button onClick={sideHandler.bind(this, 'blue')}>Blue Light</button>
+      {side === 'blue' && (
         <button onClick={destructionHandler}>DESTROY!</button>
       )}
     </React.Fragment>
