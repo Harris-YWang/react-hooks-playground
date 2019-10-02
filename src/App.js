@@ -34,12 +34,12 @@ const App = props => {
       </button>
       <button onClick={sideHandler.bind(this, 'blue')}>Blue Light</button>
       {side === 'blue' && (
-        <button onClick={destructionHandler}>DESTROY!</button>
+        <button onClick={destructionHandler}>Reset Character!</button>
       )}
     </React.Fragment>
   );
   if (destroyed) {
-    content = <h1>Clear Location</h1>;
+    content = <h1>Clear Character</h1>;
   }
   return content;
 }
