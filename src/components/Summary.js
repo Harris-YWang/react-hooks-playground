@@ -7,20 +7,23 @@ const Summary = props => {
     <div className="summary">
       <h1>{props.name}</h1>
       <p>
-        Gender: <span className="summary__output">{props.gender}</span>
-      </p>
-      <p>
         Height: <span className="summary__output">{props.height}</span>
       </p>
       <p>
-        Hair Color / Skin Color:{' '}
-        <span className="summary__output">{props.hairColor}</span> /{' '}
-        <span className="summary__output">{props.skinColor}</span>
+        Base Experience: <span className="summary__output">{props.baseExperience}</span>
       </p>
       <p>
-        Appears in # Movies:{' '}
-        <span className="summary__output">{props.movieCount}</span>
+        Abilities:
       </p>
+      {props.abilities.map((ability, key) => {
+        return (
+          <div key={key} className={`summary__abilities_${key}`}
+                style={{display: 'inline-block', margin: '0 15px'}}> 
+            <div>{ability.ability.name}</div>
+            <div>{ability.ability.is_hidden ? 'Hidden' : 'Not Hidden'}</div>
+          </div>
+        );
+      })}
     </div>
   );
 };

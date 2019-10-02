@@ -14,6 +14,7 @@ const App = props => {
 
   const charSelectHandler = event => {
     const charId = event.target.value;
+    console.log('[char clickedd]', event.target.value);
     setSelectedCharacter(charId);
   };
 
@@ -39,9 +40,10 @@ const App = props => {
     </React.Fragment>
   );
   if (destroyed) {
-    content = <h1>Total destruction!</h1>;
+    content = <h1>Clear Location</h1>;
   }
   return content;
 }
 
 export default App;
+

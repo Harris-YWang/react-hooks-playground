@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import Summary from './Summary';
 
 const Character = props => {
@@ -22,24 +21,16 @@ const Character = props => {
         props.selectedChar
     );
     setIsLoading(true);
-    fetch('https://swapi.co/api/people/' + props.selectedChar)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Could not fetch person!');
-        }
-        return response.json();
-      })
+    fetch(`https://pokeapi.co/api/v2/pokemon/${props.selectedChar}`)
+      .then(res=>res.json()) 
       .then(charData => {
+        console.log('[charData]', charData);
         const loadedCharacter = {
           id: props.selectedChar,
           name: charData.name,
           height: charData.height,
-          colors: {
-            hair: charData.hair_color,
-            skin: charData.skin_color
-          },
-          gender: charData.gender,
-          movieCount: charData.films.length
+          baseExperience: charData.base_experience,
+          abilities: charData.abilities
         };
         setLoadedCharacter(loadedCharacter);
         setIsLoading(false);
@@ -63,11 +54,9 @@ const Character = props => {
     content = (
       <Summary
         name={loadedCharacter.name}
-        gender={loadedCharacter.gender}
         height={loadedCharacter.height}
-        hairColor={loadedCharacter.colors.hair}
-        skinColor={loadedCharacter.colors.skin}
-        movieCount={loadedCharacter.movieCount}
+        baseExperience={loadedCharacter.baseExperience}
+        abilities={loadedCharacter.abilities}
       />
     );
   } else if (!isLoading && !loadedCharacter.id) {
