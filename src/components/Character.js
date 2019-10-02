@@ -31,7 +31,7 @@ class Character extends Component {
         this.props.selectedChar
     );
     this.setState({ isLoading: true });
-    fetch('https://swapi.co/api/people/' + this.props.selectedChar)
+      fetch(`https://pokeapi.co/api/v2/pokemon/${this.props.selectedChar}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Could not fetch person!');
@@ -43,12 +43,8 @@ class Character extends Component {
           id: this.props.selectedChar,
           name: charData.name,
           height: charData.height,
-          colors: {
-            hair: charData.hair_color,
-            skin: charData.skin_color
-          },
-          gender: charData.gender,
-          movieCount: charData.films.length
+          abilities: charData.abilities,
+          baseExperience: charData.base_experience
         };
         this.setState({ loadedCharacter: loadedCharacter, isLoading: false });
       })
@@ -70,9 +66,9 @@ class Character extends Component {
           name={this.state.loadedCharacter.name}
           gender={this.state.loadedCharacter.gender}
           height={this.state.loadedCharacter.height}
-          hairColor={this.state.loadedCharacter.colors.hair}
-          skinColor={this.state.loadedCharacter.colors.skin}
-          movieCount={this.state.loadedCharacter.movieCount}
+          baseExperience={this.state.loadedCharacter.baseExperience}
+          abilities={this.state.loadedCharacter.abilities}
+
         />
       );
     } else if (!this.state.isLoading && !this.state.loadedCharacter.id) {
