@@ -6,7 +6,7 @@ import Character from './components/Character';
 class App extends Component {
   state = {
     selectedCharacter: 1,
-    side: 'light',
+    side: 'red',
     destroyed: false
   };
 
@@ -32,11 +32,11 @@ class App extends Component {
           onCharSelect={this.charSelectHandler}
         />
         <Character selectedChar={this.state.selectedCharacter} />
-        <button onClick={this.sideHandler.bind(this, 'light')}>
-          Light Side
+        <button onClick={this.sideHandler.bind(this, 'red')}>
+          Red Light
         </button>
-        <button onClick={this.sideHandler.bind(this, 'dark')}>Dark Side</button>
-        {this.state.side === 'dark' && (
+        <button onClick={this.sideHandler.bind(this, 'blue')}>Blue Light</button>
+        {this.state.side === 'blue' && (
           <button onClick={this.destructionHandler}>DESTROY!</button>
         )}
       </React.Fragment>
